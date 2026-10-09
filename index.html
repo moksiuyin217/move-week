@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2e9">
+  <title>Move Week — NTC workout planner</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar"><a class="brand" href="#top" aria-label="Move Week home"><span class="brand-mark">MW</span><span>MOVE WEEK</span></a><span class="top-note">A little less admin. A little more movement.</span></header>
+
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="sparkle">✳</span> YOUR WEEK, IN MOTION</p>
+        <h1 id="hero-title">Make room<br>to <em>move.</em></h1>
+        <p class="intro">Turn your Nike Training Club workout list into a week you can actually see. Add a screenshot, review the workouts, and shape a plan that fits your life.</p>
+        <a class="scroll-link" href="#planner"><span class="arrow-down">↓</span> PLAN YOUR WEEK</a>
+      </div>
+      <div class="hero-art" aria-label="Illustration of an athlete stretching" role="img">
+        <div class="art-sun"></div><div class="art-ring"></div>
+        <svg viewBox="0 0 500 430" class="athlete" aria-hidden="true">
+          <path class="limb limb-back" d="M248 212c-40 9-68 33-99 51l-67 8c-15 2-20 16-10 24 8 7 29 4 51 2l48-3c38-1 72-20 99-40"/>
+          <path class="limb limb-leg" d="M249 253c-19 36-25 72-14 93l-50 44c-12 12-6 23 6 22l76-10c19-3 35-15 37-35l9-89"/>
+          <path class="limb limb-front" d="M274 211c38-18 68-30 96-48l30-52c6-10 20-10 24 1 3 8-8 29-16 46l-23 48c-12 25-39 39-62 51l-54 25"/>
+          <path class="torso" d="M218 138c-24 12-34 42-24 70l24 54c15 14 44 20 70 5l15-57c8-33-8-65-36-76-14-6-34-3-49 4z"/>
+          <path class="neck" d="M239 132l2-28 32 4-6 37"/><ellipse class="head" cx="263" cy="82" rx="35" ry="43" transform="rotate(13 263 82)"/>
+          <path class="hair" d="M231 79c-5-30 14-51 41-47 20 3 31 21 28 41-7-7-14-17-16-28-10 15-27 24-53 27z"/>
+          <path class="shoe" d="M185 378l-23 21c-7 8-4 16 8 16h67c9 0 13-8 8-15l-21-24z"/>
+          <path class="shoe" d="M278 365l17 18 46 10c12 3 14 13 3 18h-69c-10 0-17-7-16-17l3-25z"/>
+          <path class="detail" d="M209 157c15 18 39 25 70 17M217 225c20 11 43 13 64 5"/>
+        </svg>
+        <span class="art-caption">STRONGER, ONE SESSION AT A TIME</span>
+        <span class="art-sticker">SHOW<br>UP<br>FOR YOU <b>↗</b></span>
+      </div>
+      <div class="hero-bottom"><span>01 / PLAN WITH INTENTION</span><span>SCROLL TO GET STARTED ↓</span></div>
+    </section>
+
+    <section class="planner-section" id="planner" aria-labelledby="planner-title">
+      <div class="section-heading"><div><p class="eyebrow">THE WEEKLY RESET <span class="eyebrow-rule"></span></p><h2 id="planner-title">From screenshot<br>to <em>see-you-there.</em></h2></div><p class="section-intro">Your workout list has a lot of good intentions. Let's give each one a place to land.</p></div>
+
+      <div class="upload-card" id="upload-card">
+        <div class="upload-icon" aria-hidden="true"><span>↑</span></div>
+        <div class="upload-copy"><p class="upload-kicker">STEP 01 <span>·</span> BRING YOUR PLAN</p><h3>Choose your NTC screenshot</h3><p>We’ll read the workout names and durations on this device. Your image stays in this browser.</p></div>
+        <label class="button button-dark" for="image-input">CHOOSE AN IMAGE <span>↗</span></label>
+        <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+        <p class="file-hint">PNG, JPG OR WEBP</p>
+      </div>
+
+      <div class="status-panel" id="status-panel" hidden aria-live="polite">
+        <div class="status-spinner" id="status-spinner" aria-hidden="true"></div><div class="status-copy"><strong id="status-title">Getting ready to read your image…</strong><p id="status-detail">The first read downloads the text-reading tools to your browser.</p><div class="progress-track"><span id="progress-fill"></span></div></div><span class="progress-number" id="progress-number">0%</span>
+      </div>
+      <div class="message message-error" id="error-message" hidden role="alert"><span class="message-icon">!</span><div><strong>We couldn't read that image.</strong><p id="error-detail">Check your connection and try a clear PNG, JPG or WEBP screenshot.</p></div><label class="text-button" for="image-input">TRY AGAIN ↗</label></div>
+      <div class="message message-empty" id="empty-message" hidden role="status"><span class="message-icon">↗</span><div><strong>No workouts found just yet.</strong><p>Try a screenshot where the workout names and durations are easy to see.</p></div><label class="text-button" for="image-input">TRY ANOTHER ↗</label></div>
+
+      <section class="results" id="results" hidden aria-labelledby="results-title">
+        <div class="results-heading"><div><p class="upload-kicker">STEP 02 <span>·</span> MAKE IT YOURS</p><h3 id="results-title">Your workouts <span id="workout-count">(0)</span></h3></div><label class="text-button" for="image-input">REPLACE SCREENSHOT +</label></div>
+        <p class="edit-hint">Check the names and times we found. You can change a name, pick a day, or remove anything you want to skip.</p>
+        <div class="workout-list" id="workout-list"></div>
+        <div class="empty-list" id="empty-list" hidden><span>✳</span><strong>Your list is clear.</strong><p>Choose another screenshot to start a new plan.</p><label class="button button-outline" for="image-input">ADD A SCREENSHOT <span>↗</span></label></div>
+        <section class="plan-panel" id="plan-panel" aria-labelledby="plan-title">
+          <div class="plan-heading"><div><p class="upload-kicker">STEP 03 <span>·</span> MAKE IT HAPPEN</p><h3 id="plan-title">Your plan, ready when you are</h3></div><a class="button button-dark download-link" id="download-calendar" href="#" download="move-week-plan.ics">DOWNLOAD .ICS <span>↓</span></a></div>
+          <p class="plan-hint">Dates left blank use today. Workouts without a start time become all-day calendar events.</p>
+          <div class="plan-text-wrap"><div class="plan-text-top"><span>PASTE-READY PLAN</span><span>YOUR CHANGES UPDATE LIVE</span></div><pre class="plan-text" id="text-plan"></pre></div>
+          <section class="import-guide" aria-labelledby="import-title">
+            <div class="import-heading"><p class="upload-kicker">ONE LAST STEP</p><h4 id="import-title">Take your plan to your calendar</h4><p>Download the .ics file above, then import it on a computer.</p></div>
+            <div class="import-options">
+              <article class="import-option"><span class="import-number">01</span><div><h5>Google Calendar</h5><ol><li>Open Google Calendar and choose <strong>Settings → Import &amp; export</strong>.</li><li>Select the downloaded .ics file and the calendar to add it to.</li><li>Choose <strong>Import</strong>.</li></ol><a href="https://support.google.com/calendar/answer/37118" target="_blank" rel="noopener noreferrer">GOOGLE'S IMPORT GUIDE ↗</a></div></article>
+              <article class="import-option"><span class="import-number">02</span><div><h5>Apple Calendar on Mac</h5><ol><li>Open Calendar and choose <strong>File → Import</strong>.</li><li>Select the downloaded .ics file and choose <strong>Import</strong>.</li><li>Choose which calendar should hold the workouts.</li></ol><a href="https://support.apple.com/guide/calendar/icl1023/mac" target="_blank" rel="noopener noreferrer">APPLE'S IMPORT GUIDE ↗</a></div></article>
+            </div>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <footer class="site-footer"><a class="brand" href="#top"><span class="brand-mark">MW</span><span>MOVE WEEK</span></a><span>MADE FOR THE MOMENT YOU SHOW UP.</span><a href="#top" class="back-top">BACK TO TOP ↑</a></footer>
+  </main>
+</body>
+</html>

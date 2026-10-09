@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2e9">
+  <title>Move Week — App Map</title>
+  <style>
+    :root{color-scheme:light;--paper:#f5f2e9;--ink:#18241f;--muted:#647069;--orange:#ee643c;--green:#315849;--line:#d8d8cc;--white:#fffefb;font-family:Arial,sans-serif;color:var(--ink);background:var(--paper)}
+    *{box-sizing:border-box}body{margin:0}.shell{max-width:900px;margin:0 auto;padding:36px 24px 64px}header{padding:24px 0 30px;border-bottom:1px solid var(--line)}.eyebrow,.number,.tag{font:11px/1.5 Consolas,monospace;letter-spacing:.08em;color:var(--green)}h1{font-size:clamp(38px,7vw,62px);line-height:1.02;letter-spacing:-.055em;margin:17px 0 12px}h1 em{color:var(--orange);font-style:normal}header p,.intro{max-width:650px;color:var(--muted);line-height:1.7}h2{font-size:22px;letter-spacing:-.03em;margin:0 0 10px}h3{font-size:15px;margin:0 0 8px}.route{display:grid;gap:12px;margin:24px 0 34px}.stop,.practice,.run{padding:20px;background:var(--white);border:1px solid var(--line)}.stop{display:grid;grid-template-columns:42px 1fr;gap:14px}.number{font-size:14px;color:var(--orange);padding-top:2px}.stop p,.practice p,.run p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.7}code,pre{font:12px/1.7 Consolas,monospace}code{color:var(--green)}pre{overflow:auto;margin:12px 0 0;padding:13px;background:#f5f2e9;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}.links a{color:var(--green);font:11px Consolas,monospace;text-underline-offset:3px}.links a:focus-visible,a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}.bottom{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.tag{display:inline-block;margin-bottom:9px}.snapshot{padding-top:24px;color:var(--muted);font:11px/1.7 Consolas,monospace}@media(max-width:560px){.shell{padding:22px 17px 42px}.stop{grid-template-columns:28px 1fr;padding:16px 13px}.bottom{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <p class="eyebrow">MOVE WEEK · HOW THE APP FITS TOGETHER</p>
+      <h1>From a file to a <em>plan.</em></h1>
+      <p>This is a short route through the code behind the page you tried. The browser reads the HTML, loads its CSS and JavaScript, and then runs the app directly—there is no compile or build step.</p>
+    </header>
+
+    <section class="route" aria-label="Code route">
+      <article class="stop">
+        <span class="number">01</span>
+        <div><h2>How the page is loaded</h2><p><code>README.md</code> starts a tiny Python web server. It serves the project files to the browser. In <code>index.html</code>, the stylesheet link controls appearance and the deferred script loads the app after the page is read.</p>
+          <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;script defer src="app.js"&gt;&lt;/script&gt;</code></pre>
+          <div class="links"><a href="../README.md">README.md · local run steps</a><a href="../index.html">index.html · page structure</a><a href="../styles.css">styles.css · responsive layout</a></div>
+        </div>
+      </article>
+      <article class="stop">
+        <span class="number">02</span>
+        <div><h2>Where the screenshot enters</h2><p>The image input is in <code>index.html</code>. In <code>app.js</code>, its change handler receives the chosen file and calls <code>readImage</code>. When OCR returns text, <code>parseWorkouts</code> turns name-and-duration lines into editable workout records.</p>
+          <pre><code>input.addEventListener('change', async () =&gt; {
+  const image = input.files?.[0];
+  if (!image) return;
+  await readImage(image);
+});</code></pre>
+          <div class="links"><a href="../index.html#image-input">index.html · #image-input</a><a href="../app.js">app.js · readImage, parseWorkouts</a></div>
+        </div>
+      </article>
+      <article class="stop">
+        <span class="number">03</span>
+        <div><h2>How edits become the plan</h2><p><code>renderWorkouts</code> builds one row for each record. When a date, name, or time changes, the record is updated and <code>renderPlan</code> refreshes the visible text and downloadable calendar. The custom time picker is in <code>makeWorkoutRow</code>; <code>createCalendarFile</code> formats the .ics events.</p>
+          <pre><code>field.addEventListener('input', () =&gt; {
+  workout[field.dataset.field] = field.value;
+  renderPlan();
+});</code></pre>
+          <div class="links"><a href="../app.js">app.js · renderWorkouts, makeWorkoutRow</a><a href="../app.js">app.js · renderPlan, createCalendarFile</a></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="practice" aria-labelledby="practice-title">
+      <span class="tag">A PRACTICE TO REUSE</span>
+      <h2 id="practice-title">Decide what “works” looks like before adjusting the control.</h2>
+      <p>The time-picker requirement became observable: the menu shows exactly 00, 15, 30, and 45, manually entered minutes still update the plan, and the flow fits a 390px screen. For another feature, write down the visible outcome and the screen or input conditions that matter, then check those outcomes in the running page.</p>
+    </section>
+
+    <div class="bottom">
+      <section class="run" aria-labelledby="run-title"><span class="tag">RUN IT AGAIN</span><h2 id="run-title">See your change in the browser</h2><p>From the project folder, run <code>py -m http.server 8000</code>, then open <code>http://localhost:8000/</code>. Edit the HTML for page structure, CSS for appearance, or JavaScript for behavior, then refresh.</p></section>
+      <section class="run" aria-labelledby="publish-title"><span class="tag">PUBLISHING</span><h2 id="publish-title">From local files to a live site</h2><p>GitHub Pages serves these same static files from the branch and root folder selected in repository Settings → Pages. The browser loads the page and its linked files at the public address; no build command is needed.</p></section>
+    </div>
+    <p class="snapshot">APP MAP SNAPSHOT · source commit ee7c80a · This guide is a snapshot of the code and can drift as the app changes.</p>
+  </main>
+</body>
+</html>
