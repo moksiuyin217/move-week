@@ -37,8 +37,8 @@ Image chosen → Tesseract.js reads text in browser → parser makes workout row
 ## Where It Runs and How Someone Tries It
 
 - **During the build:** run a local static server from the project root with `py -m http.server 8000`, then open `http://localhost:8000/` in a modern browser. This avoids browser restrictions that can affect workers when opening an HTML file directly. Python is already familiar to the learner.
-- **Published demo:** push the public repository to GitHub, then set **Settings → Pages** to deploy from the `main` branch and its root folder. GitHub Pages publishes the static files; after its deployment finishes, open the site URL shown in the Pages settings. No secrets or API keys are needed.
-- **Recording:** open the published page, upload the NTC screenshot, show the recognized rows, correct/schedule at least one workout, and show both the generated text and `.ics` link plus the import guide. Keep the public repository available with the short demo video for submission; the live site complements those required items.
+- **Published demo:** [Move Week on GitHub Pages](https://moksiuyin217.github.io/move-week/) is served from the public [GitHub repository](https://github.com/moksiuyin217/move-week). GitHub Pages publishes from the `main` branch and `/ (root)` folder. No secrets or API keys are needed.
+- **Recording:** open the published page, upload the NTC screenshot, show the recognized rows, correct/schedule at least one workout, then show the generated text and `.ics` download. For the app-only demo, stay in the planner page and do not claim that the calendar file was imported. Keep the public repository available with the short demo video for submission; the live link complements those required items.
 - **Network requirement:** the page itself is hosted on GitHub Pages; OCR also needs internet access to load Tesseract.js and its worker/engine/language files from the configured CDN. The selected screenshot remains in the browser.
 
 ## Look and Feel

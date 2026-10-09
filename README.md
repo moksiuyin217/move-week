@@ -2,6 +2,11 @@
 
 Move Week reads workout names and durations from a Nike Training Club screenshot, then helps you turn them into a weekly plan.
 
+## Public links
+
+- Try the app: <https://moksiuyin217.github.io/move-week/>
+- Public repository: <https://github.com/moksiuyin217/move-week>
+
 ## Run it on your computer
 
 1. Open PowerShell in this project folder.
